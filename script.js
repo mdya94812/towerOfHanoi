@@ -1,4 +1,4 @@
-const TowersOfHanoi = () => {
+ const TowersOfHanoi = () => {
             // State
             let stacks = [[], [], []];
             let moves = [];
@@ -7,19 +7,20 @@ const TowersOfHanoi = () => {
             let timerID = 0;
             let baseTime = 0;
             let isRunning = false;
-            
+            let finishTimeoutID = 0;
+    
             // DOM Elements
             const status = document.getElementById('status');
             const container = document.getElementById('content');
             const toggleBtn = document.querySelector('.toggle-btn');
-            
+    
             // Constants
             const POLE_CONFIG = {
                 midPoints: [150, 350, 550],
                 top: 70,
                 get bottom() { return this.top + 20 * 13; }
             };
-            
+    
             const getTime = () => {
                 const now = Date.now();
                 if (!baseTime) baseTime = now;
@@ -42,9 +43,9 @@ const TowersOfHanoi = () => {
                     nextMove();
                     legStartTime = getTime();
                 }
-                
+    
                 if (!legs.length) {
-                    stop();
+                    finish();
                     return;
                 }
     
@@ -67,7 +68,7 @@ const TowersOfHanoi = () => {
             const nextMove = () => {
                 if (!moves.length) {
                     status.textContent = 'Finished';
-                    stop();
+                    finish();
                     return;
                 }
     
@@ -160,7 +161,7 @@ const TowersOfHanoi = () => {
                 stacks.forEach(stack => {
                     stack.forEach(disk => disk.remove());
                 });
-                
+    
                 stacks = [[], [], []];
                 const nDisks = parseInt(document.getElementById('number').value);
                 let width = 190;
@@ -197,11 +198,17 @@ const TowersOfHanoi = () => {
                     clearInterval(timerID);
                     legStartTime -= getTime();
                     timerID = 0;
-                    reset(); // Call reset after stopping
                 }
             };
     
+            const finish = () => {
+                stop();
+                status.textContent = 'Finished - Resetting in 3 seconds...';
+                finishTimeoutID = setTimeout(reset, 3000);
+            };
+    
             const reset = () => {
+                clearTimeout(finishTimeoutID);
                 moves = [];
                 legs = [];
                 legStartTime = 0;
@@ -213,6 +220,7 @@ const TowersOfHanoi = () => {
             const toggleStartStop = () => {
                 if (isRunning) {
                     stop();
+                    reset();
                 } else {
                     start();
                 }
