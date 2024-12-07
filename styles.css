@@ -123,6 +123,27 @@
             background-color: rgb(173, 72, 0);
             border-radius: 4px;
         }
+.theory {
+  margin-top: 20px;
+  padding: 10px;
+  /* border: 1px solid #ccc;
+  background-color: #f9f9f9; */
+}
+.theory h2 {
+  margin-top: 0;
+}
+.theory p {
+  margin: 10px 0;
+}
+.theory ul {
+  margin: 10px 0;
+  padding-left: 20px;
+  text-align: left;
+}
+.theory li {
+  margin: 5px 0;
+}
+
 
         @media (max-width: 600px) {
             #content {
