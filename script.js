@@ -14,6 +14,15 @@ const TowersOfHanoi = () => {
   const container = document.getElementById("content");
   const toggleBtn = document.querySelector(".toggle-btn");
 
+  // Get the button and the audio element
+        const playButton = document.getElementById('playButton');
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        // Add a click event listener to the button
+        playButton.addEventListener('click', () => {
+            // Play the audio
+            audioPlayer.play();
+        });
   // Constants
   const POLE_CONFIG = {
     midPoints: [150, 350, 550],
